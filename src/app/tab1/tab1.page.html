@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Películas Populares</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="genres-toolbar">
+    <div class="genres-scroll">
+      <ion-segment
+        class="genre-segment"
+        [value]="selectedGenre"
+        (ionChange)="onGenreChange($event.detail.value)"
+        scrollable
+      >
+        <ion-segment-button *ngFor="let genre of genres" [value]="genre.id">
+          {{ genre.name }}
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" class="poster-col" *ngFor="let movie of movies">
+        <ion-img
+          [src]="getImageUrl(movie.poster_path)"
+          alt="Poster de {{ movie.title }}"
+          class="poster-img"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMovies($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando más películas..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

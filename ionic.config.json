@@ -1,0 +1,7 @@
+{
+  "name": "pelisflix",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

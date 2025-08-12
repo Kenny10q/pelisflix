@@ -1,0 +1,62 @@
+.poster-col {
+  padding: 4px;
+
+  .poster-img {
+    width: 100%;
+    aspect-ratio: 2 / 3; // proporción típica de póster
+    object-fit: cover;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}
+
+/* Scroll horizontal para la barra de géneros */
+.genres-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+
+  ion-segment {
+    display: inline-flex;
+    flex-wrap: nowrap;
+  }
+
+  ion-segment-button {
+    flex: 0 0 auto;
+  }
+
+  /* Ocultar scroll bar horizontal en la barra de géneros */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.genre-segment {
+  --background: transparent;
+  --indicator-color: #3880ff;
+  --indicator-height: 3px;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  overflow-x: auto;
+
+  ion-segment-button {
+    min-width: 80px;
+    justify-content: center;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Opcional: esconder scroll bar en Webkit */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Eliminar línea/sombra en scroll infinito */
+ion-infinite-scroll-content {
+  --box-shadow: none !important;
+  box-shadow: none !important;
+}
