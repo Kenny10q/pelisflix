@@ -1,3 +1,4 @@
+// src/app/services/tmdb.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -37,13 +38,16 @@ export class TmdbService {
       params: {
         api_key: this.apiKey,
         language: 'es-ES',
-        query: query,
+        query,
         page: page.toString()
       }
     });
   }
 
   getImageUrl(path: string): string {
+    if (!path) {
+      return 'assets/no-poster.svg'; // Fallback si no hay imagen
+    }
     return `https://image.tmdb.org/t/p/w500${path}`;
   }
 }

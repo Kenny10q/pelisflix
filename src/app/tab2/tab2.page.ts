@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { TmdbService } from '../services/tmdb.service';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
-export class Tab2Page implements OnInit {
+export class Tab2Page {
   movies: any[] = [];
   searchQuery = '';
   currentPage = 1;
@@ -20,23 +20,20 @@ export class Tab2Page implements OnInit {
 
   constructor(private tmdbService: TmdbService) {}
 
-  ngOnInit() {}
-
-  onSearch(event: any) {
-    const query = event.target.value.trim();
-    this.searchQuery = query;
-    this.movies = [];
+  onSearch(event?: any) {
     this.currentPage = 1;
     this.totalPages = 1;
+    this.movies = [];
 
-    if (query) {
-      this.loadMovies();
+    if (!this.searchQuery.trim()) {
+      return;
     }
+
+    this.loadMovies();
   }
 
   loadMovies(event?: any) {
-    if (this.loading || !this.searchQuery) return;
-    if (this.currentPage > this.totalPages) {
+    if (this.loading || this.currentPage > this.totalPages) {
       if (event) event.target.disabled = true;
       return;
     }
@@ -57,7 +54,11 @@ export class Tab2Page implements OnInit {
     });
   }
 
-  getImageUrl(path: string) {
+  getImageUrl(path: string | null) {
+    // Si no hay poster_path, usamos el SVG de advertencia
+    if (!path) {
+      return 'assets/no-poster.svg';
+    }
     return this.tmdbService.getImageUrl(path);
   }
 }
