@@ -31,7 +31,12 @@
     </ion-row>
   </ion-grid>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMovies($event)">
+  <!-- Infinite scroll con referencia -->
+  <ion-infinite-scroll
+    #infiniteScroll
+    threshold="100px"
+    (ionInfinite)="loadMovies($event)"
+  >
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Cargando más películas..."

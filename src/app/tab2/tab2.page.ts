@@ -1,13 +1,63 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TmdbService } from '../services/tmdb.service';
 
 @Component({
   selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
-  standalone: false,
+  templateUrl: './tab2.page.html',
+  styleUrls: ['./tab2.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule],
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
+  movies: any[] = [];
+  searchQuery = '';
+  currentPage = 1;
+  totalPages = 1;
+  loading = false;
 
-  constructor() {}
+  constructor(private tmdbService: TmdbService) {}
 
+  ngOnInit() {}
+
+  onSearch(event: any) {
+    const query = event.target.value.trim();
+    this.searchQuery = query;
+    this.movies = [];
+    this.currentPage = 1;
+    this.totalPages = 1;
+
+    if (query) {
+      this.loadMovies();
+    }
+  }
+
+  loadMovies(event?: any) {
+    if (this.loading || !this.searchQuery) return;
+    if (this.currentPage > this.totalPages) {
+      if (event) event.target.disabled = true;
+      return;
+    }
+
+    this.loading = true;
+    this.tmdbService.searchMovies(this.searchQuery, this.currentPage).subscribe({
+      next: (res: any) => {
+        this.movies.push(...res.results);
+        this.totalPages = res.total_pages;
+        this.currentPage++;
+        this.loading = false;
+        if (event) event.target.complete();
+      },
+      error: () => {
+        this.loading = false;
+        if (event) event.target.complete();
+      }
+    });
+  }
+
+  getImageUrl(path: string) {
+    return this.tmdbService.getImageUrl(path);
+  }
 }

@@ -1,4 +1,3 @@
-// src/app/services/tmdb.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,6 +27,17 @@ export class TmdbService {
         api_key: this.apiKey,
         language: 'es-ES',
         with_genres: genreId,
+        page: page.toString()
+      }
+    });
+  }
+
+  searchMovies(query: string, page: number = 1): Observable<any> {
+    return this.http.get(`${this.baseUrl}/search/movie`, {
+      params: {
+        api_key: this.apiKey,
+        language: 'es-ES',
+        query: query,
         page: page.toString()
       }
     });

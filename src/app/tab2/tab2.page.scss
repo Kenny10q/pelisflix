@@ -1,0 +1,40 @@
+:host {
+  ion-content {
+    --padding-bottom: 110px; /* espacio para scroll */
+  }
+
+  /* Forzamos estilos igual que en tab1 */
+  ::ng-deep ion-col.poster-col {
+    padding: 4px;
+  }
+
+  ::ng-deep ion-img.poster-img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* Barra de búsqueda fija abajo */
+  .search-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .search-toolbar {
+    --background: var(--ion-tab-bar-background);
+    --color: var(--ion-text-color);
+    padding-bottom: env(safe-area-inset-bottom);
+    border-top: none;
+    box-shadow: none;
+  }
+
+  /* Quitar línea (shadow DOM de toolbar) */
+  ::ng-deep ion-toolbar.search-toolbar {
+    --border-width: 0;
+    --box-shadow: none;
+  }
+}
