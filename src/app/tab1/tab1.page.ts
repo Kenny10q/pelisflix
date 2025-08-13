@@ -1,4 +1,5 @@
 // src/app/tab1/tab1.page.ts
+import { RouterModule } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonInfiniteScroll, IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -10,7 +11,7 @@ import { TmdbService } from '../services/tmdb.service';
   templateUrl: './tab1.page.html',
   styleUrls: ['./tab1.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule, RouterModule],
 })
 export class Tab1Page implements OnInit {
   @ViewChild('infiniteScroll') infiniteScroll!: IonInfiniteScroll;

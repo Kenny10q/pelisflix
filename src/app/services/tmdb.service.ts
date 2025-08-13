@@ -44,6 +44,15 @@ export class TmdbService {
     });
   }
 
+  getMovieDetails(movieId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/movie/${movieId}`, {
+      params: {
+        api_key: this.apiKey,
+        language: 'es-ES'
+      }
+    });
+  }
+
   getImageUrl(path: string): string {
     if (!path) {
       return 'assets/no-poster.svg'; // Fallback si no hay imagen

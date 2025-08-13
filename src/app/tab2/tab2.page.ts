@@ -1,7 +1,9 @@
+import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TmdbService } from '../services/tmdb.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { TmdbService } from '../services/tmdb.service';
   templateUrl: './tab2.page.html',
   styleUrls: ['./tab2.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule],
 })
 export class Tab2Page {
   movies: any[] = [];
@@ -18,7 +20,10 @@ export class Tab2Page {
   totalPages = 1;
   loading = false;
 
-  constructor(private tmdbService: TmdbService) {}
+  constructor(
+    private tmdbService: TmdbService,
+    private router: Router
+  ) {}
 
   onSearch(event?: any) {
     this.currentPage = 1;
@@ -55,10 +60,15 @@ export class Tab2Page {
   }
 
   getImageUrl(path: string | null) {
-    // Si no hay poster_path, usamos el SVG de advertencia
     if (!path) {
       return 'assets/no-poster.svg';
     }
     return this.tmdbService.getImageUrl(path);
+  }
+
+  openMovie(movie: any) {
+    this.router.navigate(['/movie-detail'], {
+      queryParams: movie
+    });
   }
 }

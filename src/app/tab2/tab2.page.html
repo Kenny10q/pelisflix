@@ -11,6 +11,7 @@
         size="4"
         *ngFor="let movie of movies"
         class="poster-col"
+        [routerLink]="['/movie-detail', movie.id]"
       >
         <ion-img
           class="poster-img"
